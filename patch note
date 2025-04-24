@@ -1,0 +1,229 @@
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+Versi 0.1
+- Membuat sistem login dan pendaftaran (signup) dasar untuk pengguna.
+- Menyusun halaman utama (index) dengan deskripsi layanan dan paket reservasi (bronze, silver, gold, platinum).
+- Menambahkan halaman reservasi untuk pengguna dengan form pengisian data reservasi.
+
+Versi 0.2
+- Menambahkan halaman dashboard untuk pengguna dan admin.
+- Implementasi halaman riwayat reservasi bagi pengguna.
+- Menyisipkan validasi input dasar di form reservasi (pengecekan field kosong dan spasi).
+
+Versi 0.3
+- Integrasi awal peta menggunakan Google Maps API untuk pemilihan lokasi reservasi.
+- Menampilkan paket reservasi beserta tombol pesan.
+- Memperbaiki bug terkait penyimpanan data reservasi dan validasi input form.
+
+Versi 0.4
+- google maps api membutuhkan credit card
+- admin sedang melihat saldo dan memutuskan tidak menggunakan google maps api karena adnin tidak memiliki credit card
+- Migrasi dari Google Maps API ke Leaflet dan Leaflet Routing Machine untuk menampilkan peta.
+- Penyesuaian tampilan peta di halaman reservasi agar lebih responsif.
+- Menambahkan tombol untuk membuka Google Maps dengan rute ke lokasi reservasi (tanpa API) sebagai solusi sementara.
+
+Versi 0.5
+- Mengubah tombol "Buka Google Maps" menjadi "Rute ke saya di Google Maps" dengan parameter destination saja.
+- Menambahkan tombol baru "Lokasi Kuburan" yang mengarahkan ke Google Maps untuk menampilkan titik lokasi reservasi.
+- Menghilangkan penggunaan geolocation secara langsung sehingga mengurangi error terkait "gagal mendapatkan lokasi".
+
+Versi 1.0
+- Penambahan halaman admin untuk mengelola data lokasi reservasi (manage_maps.php).
+- Admin dapat menambahkan lokasi (nama dan titik koordinat) dan menghapus lokasi yang sudah ada.
+- Perbaikan bug pada penyimpanan data reservasi berdasarkan lokasi yang dikelola admin.
+
+Versi 1.1
+- Implementasi fitur live update data reservasi setiap 30 detik di dashboard pengguna dan admin.
+- Menambahkan fitur konfirmasi reservasi dan opsi pembatalan reservasi untuk meningkatkan kontrol sistem.
+
+Versi 1.2
+- Penyempurnaan tampilan antarmuka (UI/UX) di halaman reservasi dan dashboard.
+- Optimalisasi query database dan peningkatan keamanan dengan penggunaan prepared statements yang lebih ketat.
+- Perbaikan minor pada validasi form reservasi (misalnya, pengecekan input hanya berisi spasi).
+
+Versi 1.3
+- Penambahan fitur edit reservasi untuk pengguna (dapat dilakukan dalam batas waktu 50 menit sejak pemesanan).
+- Peningkatan validasi input dan penanganan error untuk mengurangi bug terkait data reservasi.
+- Perbaikan tampilan peta dan penyesuaian update marker otomatis saat pilihan lokasi berubah.
+
+Versi 1.4
+- Penyempurnaan integrasi Leaflet: marker dan peta otomatis diperbarui sesuai pilihan lokasi dari dropdown.
+- Perbaikan bug pada tombol "Rute ke saya di Google Maps" agar lebih responsif dan konsisten.
+- Penghapusan fitur geolocation langsung dalam order sehingga hanya menggunakan koordinat lokasi yang disediakan oleh admin.
+
+Versi 1.5 (versi stabil)
+- Finalisasi sistem reservasi kuburan Pacitan dengan fitur lengkap:
+- Sistem login/signup untuk pengguna dan admin.
+- Halaman index, dashboard, reservasi, riwayat reservasi, serta halaman admin.
+- Integrasi peta menggunakan Leaflet untuk pemilihan lokasi reservasi oleh pengguna.
+- Fitur live update data reservasi setiap 30 detik pada dashboard.
+- Fitur konfirmasi, pembatalan, dan edit reservasi dalam batas waktu tertentu.
+- Tombol "Rute ke saya di Google Maps" dan "Lokasi Kuburan" yang mengarahkan ke Google Maps tanpa menggunakan API.
+- Perbaikan bug, peningkatan keamanan, dan penghapusan fitur-fitur yang tidak relevan guna meningkatkan performa sistem secara keseluruhan.
+
+versi 1.6 (pembaruan di manage_maps.php)
+- penambahan tombol edit
+- perbaikan eror pada tombol edit
+- Form Dinamis
+- Proses Update vs Insert
+- Tombol Edit di Tabel
+
+versi 2.0 (big update)
+pembaaruan versi 2 ini menggunakan sql baru yang sudah direvisi
+pembaruan, penyesuaian dan perubahan besar pada database dan web dengan database bernama reservasi_kuburan_v2 dan buat juga desain awal yang berbeda dengan web sebelumnya serta modifikasi web reservasi kuburan yang pertama
+A. database tetap reservasi_kuburan
+1. memiliki 4 tabel
+a. tabel user (1)
+- memiliki user_id, username, password, nama tgl_lahir, no_ktp
+- relasi (booking) ke tabel order (M)
+- relasi (memiliki) ke tabel ahli_waris (M)
+b. tabel ahli_waris (M)
+- memiliki id, user_id, nama, hubungan
+- relasi (memiliki) ke tabel user (1)
+c. tabel order (M)
+- memiliki id, total_harga, tanggal
+- relasi (booking) ke tabel user (1)
+- relasi (order_details) ke tabel paket (M)
+- relasi order_details memiliki order_id, paket_id, harga, atas_nama, qty_kapling
+d. tabel paket (M)
+- memiliki id, stok_kapling, harga, lokasi
+- relasi (order_details) ke tabel order (M)
+- relasi order_details memiliki order_id, paket_id, harga, atas_nama, qty_kapling
+B. pembaruan dan penambahan mekanisme web sesuai database dan web baru dan pembaruan/penambahan lainnya serta fitur baru dan fitur yang lain
+- penulisan kode ulang
+- Struktur database dengan 4 tabel utama (user, ahli_waris, orders, paket) serta tabel join order_details untuk detail pesanan.
+- Halaman publik (index.php) dengan desain baru dan daftar paket.
+- Halaman autentikasi (login.php, signup.php) untuk user.
+- Dashboard user yang menampilkan paket dan tombol Pesan untuk memesan (order.php).
+- Halaman order.php yang memproses pemesanan: setelah memilih paket, user memasukkan data (misalnya Atas Nama dan jumlah kapling) dan sistem membuat record di orders dan order_details.
+- Halaman admin minimal (admin/login.php, admin/dashboard.php, admin/manage_locations.php) dengan fungsi kelola - lokasi secara inline (tambah/edit/hapus) tanpa mengarahkan ke file terpisah untuk edit.
+- Setiap file menyertakan komentar dan penanganan error dasar sehingga bila terjadi kesalahan, letak error dapat diketahui.
+
+versi 2.0.1
+- Perubahan Skema Database (SQL)
+- Tabel paket dan locations kini berelasi.
+- Kolom lokasi di tabel paket dihapus dan digantikan dengan location_id yang mereferensikan tabel locations.
+- Tabel orders ditambahkan kolom status untuk menyimpan progres order ("belum dikerjakan", "dikerjakan", "selesai").
+- Modifikasi order.php (User Order Page)
+- User memilih paket dan lokasi (dari data lokasi yang diambil melalui relasi ke tabel locations).
+- Sistem mengecek stok (nomor kapling); jika stok kurang dari jumlah yang dipesan, maka akan munculkan SweetAlert2 dengan pesan "maaf stock habis" dan tombol Pesan dinonaktifkan.
+- Setelah order berhasil, stok pada tabel paket berkurang sesuai dengan jumlah yang diorder.
+- Masih terdapat Leaflet Map (desain seperti web versi 1) dan tombol untuk membuka rute di Google Maps.
+- Modifikasi orders.php (User Order List)
+- Tabel orders ditampilkan menggunakan DataTables.
+- Tombol Edit/Hapus hanya aktif selama order dibuat dalam batas waktu 18 menit (jika lebih, akan muncul SweetAlert2).
+- Tombol Detail membuka modal yang menampilkan detail order, termasuk peta Leaflet yang kini tampil penuh (menggunakan invalidateSize() agar tidak hanya tampil seperempat dari box).
+- Order status ditampilkan dengan badge berwarna (merah untuk "belum dikerjakan", kuning untuk "dikerjakan", hijau untuk "selesai").
+
+versi 2.0.2
+# penambahan/penulisan kode ulang pada admin
+- admin/login.php & admin/logout.php
+Untuk login/logout admin.
+- admin/dashboard.php
+Menampilkan daftar order lengkap dengan status (badge berwarna) dan tombol untuk mengubah status order melalui modal serta menggunakan AJAX (file update_order_status.php).
+- admin/manage_locations.php
+Halaman pengelolaan lokasi (tambah/edit/hapus) yang dilakukan secara inline tanpa mengarahkan ke file terpisah.
+- admin/manage_paket.php
+Halaman pengelolaan paket (tambah/edit/hapus) yang telah disesuaikan dengan relasi ke tabel locations (di mana kolom lokasi pada paket kini merupakan foreign key ke tabel locations).
+- admin/update_order_status.php
+Endpoint AJAX untuk mengubah status order oleh admin.
+
+versi 2.0.3
+# Skema SQL (update paket):
+Tabel paket sekarang tidak memiliki kolom lokasi melainkan location_id yang merupakan foreign key ke tabel locations.
+Ditambahkan kolom deskripsi pada tabel paket.
+
+versi 2.1
+# SQL Script Update
+- Menambahkan kolom alamat_user dan kapling_numbers pada tabel orders
+- Mengubah tabel paket: menghapus kolom lokasi dan menggantinya dengan location_id serta menambahkan kolom deskripsi
+- Menetapkan relasi antara tabel paket dan locations
+
+# order.php (Halaman Pemesanan User)
+- Form order kini memiliki input untuk Atas Nama, Alamat Pemesan, Pilih Ahli Waris (diambil dari tabel ahli_waris untuk user saat ini), jumlah Kapling
+- Sebelum order disimpan, sistem akan menghasilkan nomor kapling unik (tanpa duplikasi) berdasarkan jumlah yang dipesan
+- Stok pada tabel paket akan berkurang sesuai order, dan jika stok tidak mencukupi, tombol Pesan dinonaktifkan dan muncul pesan dengan SweetAlert2
+- Peta (Leaflet) menampilkan lokasi paket (diambil dari tabel locations melalui relasi ke paket) dan tombol Rute ke saya di Google Maps serta Tampilkan Lokasi Paket
+
+# orders.php (Daftar Order User)
+- Tabel order ditampilkan menggunakan DataTables
+- Jika order masih dalam batas 18 menit, tombol Edit/Hapus aktif; jika tidak, tombol tersebut menampilkan pesan via SweetAlert2
+- Tombol Detail membuka modal yang menampilkan informasi order lengkap (termasuk alamat_user dan kapling_numbers) serta peta Leaflet (diperbaiki tampilannya agar memenuhi box)
+- Kode di sisi admin (manage_locations.php, manage_paket.php, dashboard.php, update_order_status.php)
+- Saya sertakan pembaruan untuk manage_paket.php (termasuk input deskripsi) dan manage_locations.php seperti sebelumnya, serta dashboard admin yang menampilkan order dan tombol edit status.
+
+# pembaaruan dashboard
+Admin Dashboard (admin/dashboard.php)
+- Menampilkan daftar order dengan badge status (merah: belum dikerjakan, kuning: dikerjakan, hijau: selesai)
+- Navbar memuat link ke Dashboard, Kelola Lokasi, dan Kelola Paket
+- Terdapat tombol untuk membuka modal ubah status order (menggunakan AJAX untuk update)
+
+User Dashboard (dashboard.php)
+- Mengelompokkan paket berdasarkan nama (jika ada paket dengan nama yang sama, maka akan dikelompokkan dalam satu card)
+- Jika pengguna mengklik card tersebut, akan muncul pilihan (dropdown) lokasi dari paket yang tersedia (berdasarkan record paket yang sama)
+- Tombol "Pesan" mengarahkan ke halaman order.php dengan parameter paket ID yang dipilih
+
+versi 2.1.1
+halaman dashboard user yang telah diperbarui agar:
+- Tidak muncul tombol "Pesan" dobel.
+- Jika user mengganti pilihan lokasi (varian paket) melalui dropdown, maka data deskripsi, harga, stok, dan nama lokasi akan berubah sesuai dengan record paket yang dipilih.
+- Pada dropdown hanya ditampilkan nama lokasi (tanpa menampilkan lat dan lng).
+- Tombol "Pesan" menggunakan variant (paket) yang saat ini dipilih untuk mengarahkan user ke halaman order.php dengan parameter paket_id yang benar.
+
+versi 2.1.2
+- Format Harga:
+Gunakan fungsi number_format($harga, 0, ',', '.') atau parseInt(...).toLocaleString('id-ID') untuk menampilkan harga tanpa desimal dan dengan pemisah titik.
+- Navbar Dashboard User:
+Telah diperbarui untuk menyertakan tautan "Detail Pesanan" (mengarah ke orders.php) di navbar.
+- Dynamic Update pada Dashboard:
+Dropdown di dashboard user mengupdate informasi paket (deskripsi, harga, stok, lokasi) secara dinamis berdasarkan variant yang dipilih.
+
+versi 2.1.3
+# Pembaruan pada order.php
+- Bagian "Pilih Ahli Waris" tidak wajib diisi (input hidden tidak memiliki atribut required).
+- Jika tidak dipilih, nilai yang dikirimkan menjadi kosong (atau tidak diproses).
+
+# Halaman baru: ahli_waris.php
+- Menampilkan data ahli waris dari tabel ahli_waris untuk user yang sedang login.
+- Dilengkapi dengan form untuk menambahkan data (opsional) dan daftar data ahli waris.
+
+# Pembaruan navbar di dashboard.php dan orders.php
+- Menambahkan tautan "Ahli Waris" agar user dapat dengan mudah mengakses halaman ahli_waris.php.
+
+versi 2.1.4
+1. perbaikan eror pada order tidak bisa memilil ahli waris dan ahli waris tidak hanya 1 tapi bisa memilih lebih dari satu dan jika user tidak mau memasukkan ahli waris maka tidak apa-apa/tidak wajib
+pemilihan dengan menggunakan sistem centang agar bisa memilih atau tidak memilih
+2. ahli waris berdasarkan user yang mengisi jika user a mengisi maka data user a tidak boleh bocor ke user b dan user lainnya
+3. perbaikan pada navbar dasbord user,ahli waris dan orders
+
+versi 2.1.5
+bagian "Pilih Ahli Waris" pada halaman order (di file order.php) yang memenuhi persyaratan:
+Tampilan input mirip field tanggal (read-only) dengan placeholder -- pilih ahli waris --.
+Saat pengguna mengklik tombol Pilih, sebuah modal muncul berisi daftar checkbox ahli waris (hanya data milik user yang sedang login).
+Setelah memilih dan menyimpan, field akan berubah menjadi -- data direkam --. (Jika tidak memilih sama sekali, akan tetap -- pilih ahli waris --.)
+Data yang dipilih (ID ahli waris) disimpan ke input tersembunyi dan tidak hilang kecuali user membatalkan (misalnya dengan menutup atau reset form).
+
+versi 2.1.6
+order.php yang sudah diperbarui sesuai permintaan:
+
+User dapat memesan paket.
+
+- Data paket diambil dari tabel paket (dengan relasi ke tabel locations).
+- Pada form order, ditambahkan bagian untuk "Pilih Ahli Waris" yang menggunakan modal dengan checkbox (multi-select) dan tampilannya mirip field tanggal. Jika user tidak memilih apa-apa, field akan tetap menampilkan -- pilih ahli waris --. Jika ada yang dipilih, tampilannya berubah menjadi -- data direkam --.
+- Data ahli waris yang ditampilkan diambil hanya dari user yang sedang login.
+- Kode ini langsung menyimpan data order (termasuk: alamat_user, nomor kapling unik, dan selected_ahli_waris) ke database.
+- Juga disediakan peta (Leaflet) dan tombol Rute ke saya di Google Maps serta Tampilkan Lokasi Paket.
+- Navbar sudah diperbarui agar menyertakan tautan ke Dashboard, Detail Pesanan, dan Ahli Waris.
+
+versi 2.1.7
+pemangkasan semua code dari web untuk user maupun untuk admin sekitar 8% sampai 23%
+
+versi 2.5
+1. perbaikan pada halaman order.php
+2. perbaikan pada halaman ahli_waris.php
+3. perbaikan pada halaman dashboard.php
+4. perbaikan dan penyesuaian serta desain dan style yang unik pada halaman index
+5. penambahan database image pada tabel paket
+6. sekarang dashboard(user) memiliki gambar paket
+7. manage paket sekarang bisa mengupload gambar paket
