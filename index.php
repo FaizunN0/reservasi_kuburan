@@ -45,7 +45,7 @@ $pakets = $res->fetch_all(MYSQLI_ASSOC);
 
         .navbar .logo {
             font-size: 20px;
-            font-weight: bold;
+            font-weight: thin;
         }
 
         .nav-links {
