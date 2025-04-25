@@ -29,6 +29,7 @@ $pakets = $res->fetch_all(MYSQLI_ASSOC);
             font-family: 'Inter', Arial, sans-serif;
             background-color: #07170f;
             color: white;
+            width: 100%;
         }
 
         .navbar {
@@ -40,6 +41,7 @@ $pakets = $res->fetch_all(MYSQLI_ASSOC);
             padding: 14px;
             position: relative;
             z-index: 2;
+            width: 100%;
            
         }
 
@@ -325,14 +327,13 @@ $pakets = $res->fetch_all(MYSQLI_ASSOC);
             text-align: center;
         }
          /* Tentang Kami */
-         .about-section { padding: 60px 20px; background-color: #0a240f; text-align: center; }
+         .about-section { padding: 60px 20px; background-color: #0a240f; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .about-section h2 { font-size: 2.5rem; margin-bottom: 20px; }
         .about-section p { max-width: 800px; margin: 0 auto; line-height: 1.6; color: #ccc; }
         /* Pilihan Peti */
         .coffin-section { padding: 60px 20px; background-color: #07170f; }
         .coffin-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .coffin-card { background-color: #111; border-radius: 16px; padding: 20px; width: 280px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); text-align: center; }
+        .coffin-card { background-color: #111; border-radius: 16px; padding: 20px; width: 280px;box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); text-align: center; }
         .coffin-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; }
         .coffin-card h4 { margin: 12px 0 8px; }
         .coffin-card p { font-size: 0.9rem; color: #ccc; }
@@ -346,15 +347,17 @@ $pakets = $res->fetch_all(MYSQLI_ASSOC);
         <div class="logo">Reservasi Kuburan Pacitan</div>
         <button class="menu-toggle" id="menu-toggle">&#9776;</button>
         <div class="nav-links" id="nav-links">
-            <a href="#">Beranda</a>
+            <a href="#beranda">Beranda</a>
             <a href="#paket">Paket</a>
+            <a href="#tentang">tentang</a>
+            <a href="#coffin">peti</a>
             <a href="#lokasi">Lokasi</a>
             <a href="login.php">Login</a>
             <a href="signup.php">Daftar</a>
         </div>
     </nav>
 
-    <section class="hero">
+    <section id="beranda" class="hero">
         <h1>Selamat Datang di Layanan Reservasi Kuburan Pacitan</h1>
         <p>Kami menyediakan layanan pemesanan makam yang lengkap, profesional, dan dilayani dengan sepenuh hati.</p>
         <a href="#paket" class="btn">Lihat Paket</a>
