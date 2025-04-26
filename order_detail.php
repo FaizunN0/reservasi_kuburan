@@ -108,8 +108,6 @@ if (!empty($order['selected_ahli_waris'])) {
       </div>
     </div>
     <div class="mb-3 no-print">
-      <button class="btn btn-primary" onclick="routeToMe()">Tampilkan Rute</button>
-      <button class="btn btn-secondary" onclick="openLocation()">Tampilkan Lokasi Paket</button>
       <button class="btn btn-success" onclick="window.print()">Cetak Invoice</button>
     </div>
     <!-- Google Maps Embed menggunakan iframe -->
